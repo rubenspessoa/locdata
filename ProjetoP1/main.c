@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
-static void helloWorld (GtkWidget *wid, GtkWidget *win)
+static void janela_loc_data (GtkWidget *wid, GtkWidget *win)
 {
   GtkWidget *dialog = NULL;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Hello World!");
+  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "This is the LocData!\n");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
@@ -25,7 +25,7 @@ int main (int argc, char *argv[])
   /* Create the main window */
   win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_container_set_border_width (GTK_CONTAINER (win), 8);
-  gtk_window_set_title (GTK_WINDOW (win), "Hello World");
+  gtk_window_set_title (GTK_WINDOW (win), "LocData");
   gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
   gtk_widget_realize (win);
   g_signal_connect (win, "destroy", gtk_main_quit, NULL);
@@ -35,7 +35,7 @@ int main (int argc, char *argv[])
   gtk_container_add (GTK_CONTAINER (win), vbox);
 
   button = gtk_button_new_from_stock (GTK_STOCK_DIALOG_INFO);
-  g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (helloWorld), (gpointer) win);
+  g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_loc_data), (gpointer) win);
   gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
 
   button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
