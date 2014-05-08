@@ -5,7 +5,7 @@ static void janela_loc_data (GtkWidget *wid, GtkWidget *win)
 {
   GtkWidget *dialog = NULL;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "This is the LocData!\n");
+  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Este é o LocData!\nSeja bem-vindo usuário!\nEssa é sua primeira interação com o alpha do LocData.\nEm breve estaremos disponibilizando o programa completo e operacional.\nAguarde!\n");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
@@ -24,7 +24,7 @@ int main (int argc, char *argv[])
 
   /* Create the main window */
   win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_container_set_border_width (GTK_CONTAINER (win), 8);
+  gtk_container_set_border_width (GTK_CONTAINER (win), 100);
   gtk_window_set_title (GTK_WINDOW (win), "LocData");
   gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
   gtk_widget_realize (win);
