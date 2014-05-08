@@ -34,7 +34,7 @@ int main (int argc, char *argv[])
   vbox = gtk_vbox_new (TRUE, 6);
   gtk_container_add (GTK_CONTAINER (win), vbox);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_DIALOG_INFO);
+  button = gtk_button_new_with_label ("Descição do LocData");
   g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_loc_data), (gpointer) win);
   gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
 
