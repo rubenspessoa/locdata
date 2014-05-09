@@ -29,7 +29,7 @@ static void janela_descricao_do_gtk (GtkWidget *wid, GtkWidget *win)
 {
   GtkWidget *dialog = NULL;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, " O GTK+ 2 é um toolkit multi-plataforma para a criação de interfaces gráficas.\nÉ licenciado sob a licença GNU LGPL, permitindo que software proprietários e livres o utilizem em sua construção.\nÉ software livre e integra o projeto GNU.\nFoi desenvolvido inicialmente para o GIMP, por isso foi batizado de GIMP toolkit, com abreviação GTK+.\nFoi desenvolvido originalmente por Peter Mattis, Spencer Kimball e Josh MacDonald2.\nO GTK+ é muito popular, sendo usado em um grande número de aplicações e no ambiente de desktop GNOME (que por sua vez também é muito popular).\n");
+  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "O GTK+ 2 é um toolkit multi-plataforma para a criação de interfaces gráficas.\nÉ licenciado sob a licença GNU LGPL, permitindo que software proprietários e livres o utilizem em sua construção.\nÉ software livre e integra o projeto GNU.\nFoi desenvolvido inicialmente para o GIMP, por isso foi batizado de GIMP toolkit, com abreviação GTK+.\nFoi desenvolvido originalmente por Peter Mattis, Spencer Kimball e Josh MacDonald2.\nO GTK+ é muito popular, sendo usado em um grande número de aplicações e no ambiente de desktop GNOME (que por sua vez também é muito popular).\n");
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
