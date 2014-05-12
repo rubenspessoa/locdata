@@ -2460,6 +2460,14 @@
 1399501168 source:/home/filipe/Documentos/ProjetoP1/main2.c
 	<gtk/gtk.h>
 
-1399639837 source:/home/filipe/Documentos/projeto/ProjetoP1/main.c
+1399938837 source:/home/filipe/Documentos/projeto/ProjetoP1/main.c
+	<gtk/gtk.h>
+
+1399937568 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_inicial_locdata.c
+	<gtk/gtk.h>
+
+1399924763 source:/home/filipe/Documentos/projeto/ProjetoP1/pra_valer.c
+	<stdio.h>
+	<stdlib.h>
 	<gtk/gtk.h>
 
