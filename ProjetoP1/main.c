@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <stdio.h>
 
 static void enter_callback (GtkWidget *widget, GtkWidget *entry)
 {
@@ -121,11 +122,11 @@ int main (int argc, char *argv [])
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
 
-    image = gtk_image_new_from_file ("/home/filipe/Downloads/locdatalogonobg130x130.png");
+    image = gtk_image_new_from_file ("/home/filipe/Documentos/projeto/locdatalogonobg130x130.png");
     gtk_box_pack_start (GTK_BOX (vbox), image, TRUE, TRUE, 0);
 
 
-    image2 = gtk_image_new_from_file("/home/filipe/Downloads/locdataname.png");
+    image2 = gtk_image_new_from_file("/home/filipe/Documentos/projeto/locdataname.png");
     gtk_box_pack_start (GTK_BOX (vbox), image2, TRUE, TRUE, 0);
 
     fixed = gtk_fixed_new();
