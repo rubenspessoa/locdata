@@ -1,16 +1,41 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-static void enter_callback (GtkWidget *widget, GtkWidget *entry)
+const gchar *entry_text1 = NULL;
+const gchar *entry_text2 = NULL;
+const gchar *entry_text3 = NULL;
+char empresa [100];
+char usuario [100];
+char senha [15];
+
+/*funçoes que pegam um texto digitado e imprimem no terminal*/
+static void enter_callback1 (GtkWidget *widget, GtkWidget *entry1)
 {
 
-  const gchar *entry_text;
-  entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
-  printf ("Digitado: %s\n", entry_text);
+    entry_text1 = gtk_entry_get_text (GTK_ENTRY (entry1));
+    printf ("Empresa: %s\n", entry_text1);
 
 }
 
+static void enter_callback2 (GtkWidget *widget, GtkWidget *entry2)
+{
+
+    entry_text2 = gtk_entry_get_text (GTK_ENTRY (entry2));
+    printf ("Usuario: %s\n", entry_text2);
+
+}
+
+static void enter_callback3 (GtkWidget *widget, GtkWidget *entry3)
+{
+
+    entry_text3 = gtk_entry_get_text (GTK_ENTRY (entry3));
+    printf ("Senha: %s\n", entry_text3);
+
+}
+
+/*função que gerencia a visualização da senha*/
 static void entry_toggle_visibility (GtkWidget *checkbutton, GtkWidget *entry)
 {
 
@@ -18,6 +43,7 @@ static void entry_toggle_visibility (GtkWidget *checkbutton, GtkWidget *entry)
 
 }
 
+/*funçoes de caixa de dialogo*/
 void janela_descricao_login (GtkWidget *wid, GtkWidget *win)
 {
     GtkWidget *dialog = NULL;
@@ -28,81 +54,116 @@ void janela_descricao_login (GtkWidget *wid, GtkWidget *win)
     gtk_widget_destroy (dialog);
 }
 
+void janela_loggin (GtkWidget *wid, GtkWidget *win)
+{
+
+    if (entry_text1 == NULL || entry_text2 == NULL || entry_text3 == NULL)
+    {
+        GtkWidget *dialog = NULL;
+
+        dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Por favor, preencha todos os campos.\n");
+        gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+    }
+    else
+    {
+        strcpy (empresa, entry_text1);
+        strcpy (usuario, entry_text2);
+        strcpy (senha, entry_text3);
+
+        GtkWidget *dialog = NULL;
+
+        dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Seus dados foram salvos.\n");
+        gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+    }
+
+}
+
+/*função que apresenta uma janela com caixas de texto e um botão*/
 void janela_cadastro_de_empresas ()
 {
 
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
-    GtkWidget *entry;
+    GtkWidget *entry1;
+    GtkWidget *entry2;
+    GtkWidget *entry3;
     GtkWidget *button;
     GtkWidget *check;
     GtkWidget *fixed;
     gint tmp_pos;
 
+    /*criando janela*/
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (window), 500, 300);
     gtk_window_set_title (GTK_WINDOW (window), "Registro de empresa LocData");
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 
+    /*criando caixa vertical*/
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
     gtk_widget_show (vbox);
 
-    entry = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
-    g_signal_connect (entry, "activate", G_CALLBACK (enter_callback), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "Digite aqui");
-    tmp_pos = GTK_ENTRY (entry)->text_length;
-    gtk_editable_insert_text (GTK_EDITABLE (entry), " o nome da sua empresa", -1, &tmp_pos);
-    gtk_editable_select_region (GTK_EDITABLE (entry), 0, GTK_ENTRY (entry)->text_length);
-    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (entry);
+    /*criando três caixas de texto*/
+    entry1 = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry1), 100);
+    g_signal_connect (entry1, "changed", G_CALLBACK (enter_callback1), entry1);
+    tmp_pos = GTK_ENTRY (entry1)->text_length;
+    gtk_editable_select_region (GTK_EDITABLE (entry1), 0, GTK_ENTRY (entry1)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry1, TRUE, TRUE, 0);
+    gtk_widget_show (entry1);
 
-    entry = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
-    g_signal_connect (entry, "activate", G_CALLBACK (enter_callback), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "Digite aqui");
-    tmp_pos = GTK_ENTRY (entry)->text_length;
-    gtk_editable_insert_text (GTK_EDITABLE (entry), " o nome do seu usuário Admin", -1, &tmp_pos);
-    gtk_editable_select_region (GTK_EDITABLE (entry), 0, GTK_ENTRY (entry)->text_length);
-    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (entry);
+    entry2 = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry2), 50);
+    g_signal_connect (entry2, "changed", G_CALLBACK (enter_callback2), entry2);
+    tmp_pos = GTK_ENTRY (entry2)->text_length;
+    gtk_editable_select_region (GTK_EDITABLE (entry2), 0, GTK_ENTRY (entry2)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry2, TRUE, TRUE, 0);
+    gtk_widget_show (entry2);
 
-    entry = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry), 50);
-    g_signal_connect (entry, "activate", G_CALLBACK (enter_callback), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "Digite aqui");
-    tmp_pos = GTK_ENTRY (entry)->text_length;
-    gtk_editable_insert_text (GTK_EDITABLE (entry), " a sua senha Admin", -1, &tmp_pos);
-    gtk_editable_select_region (GTK_EDITABLE (entry), 0, GTK_ENTRY (entry)->text_length);
-    gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);
-    gtk_widget_show (entry);
+    entry3 = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry3), 15);
+    g_signal_connect (entry3, "changed", G_CALLBACK (enter_callback3), entry3);
+    tmp_pos = GTK_ENTRY (entry3)->text_length;
+    gtk_editable_select_region (GTK_EDITABLE (entry3), 0, GTK_ENTRY (entry3)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry3, TRUE, TRUE, 0);
+    gtk_widget_show (entry3);
 
+    /*criando um caixa vertical*/
     hbox = gtk_hbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
     gtk_widget_show (hbox);
 
+    /*criando um botão "toogle" de seleção*/
     check = gtk_check_button_new_with_label ("Visualizar senha");
     gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
-    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry3);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
     gtk_widget_show (check);
 
+    /*criando um widget fixed*/
     fixed = gtk_fixed_new();
     gtk_container_add(GTK_CONTAINER(vbox), fixed);
-    gtk_widget_show(fixed);
+    gtk_widget_show (fixed);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
-    g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
+    /*criando um botão de "salvar"*/
+    button = gtk_button_new_with_label ("Salvar");
+    g_signal_connect (button, "clicked", G_CALLBACK (janela_loggin), window);
     gtk_fixed_put(GTK_FIXED(fixed), button, 1, 15);
     gtk_widget_set_size_request(button, 150, 35);
     gtk_widget_show(button);
 
-    gtk_widget_show (window);
+    /*mostrando todos os widgets dentro da janela*/
+    gtk_widget_show_all (window);
 }
 
 int main (int argc, char *argv [])
 {
+
     GtkWidget *window;
     GtkWidget *button;
     GtkWidget *button2;
@@ -111,40 +172,50 @@ int main (int argc, char *argv [])
     GtkWidget *image2;
     GtkWidget *fixed;
 
+    /*iniciando o GTK*/
     gtk_init (&argc, &argv);
 
+    /*criando janela*/
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (window), 800, 500);
     gtk_window_set_title (GTK_WINDOW (window), "LocData");
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
     g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
     g_signal_connect_swapped (window, "delete-event", G_CALLBACK (gtk_widget_destroy), window);
 
+    /*criando caixa vertical*/
     vbox = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox);
 
+    /*inserindo imagem: logo do LocData*/
     image = gtk_image_new_from_file ("/home/filipe/Documentos/projeto/locdatalogonobg130x130.png");
     gtk_box_pack_start (GTK_BOX (vbox), image, TRUE, TRUE, 0);
 
-
+    /*inserindo imagem: nome colorido do LocData*/
     image2 = gtk_image_new_from_file("/home/filipe/Documentos/projeto/locdataname.png");
     gtk_box_pack_start (GTK_BOX (vbox), image2, TRUE, TRUE, 0);
 
-    fixed = gtk_fixed_new();
-    gtk_container_add(GTK_CONTAINER(vbox), fixed);
+    /*criando widget fixed*/
+    fixed = gtk_fixed_new ();
+    gtk_container_add (GTK_CONTAINER(vbox), fixed);
 
+    /*criando botão "registre-se"*/
     button = gtk_button_new_with_label ("Registre-se");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_empresas), (gpointer) window);
-    gtk_fixed_put(GTK_FIXED (fixed), button, 290, 50);
+    gtk_fixed_put (GTK_FIXED (fixed), button, 290, 50);
     gtk_widget_set_size_request (button, 200, 35);
 
+    /*criando botão "já sou registrado"*/
     button2 = gtk_button_new_with_label ("Já sou registrado");
     g_signal_connect (G_OBJECT (button2), "clicked", G_CALLBACK (janela_descricao_login), (gpointer) window);
     gtk_fixed_put(GTK_FIXED (fixed), button2, 290, 100);
     gtk_widget_set_size_request (button2, 200, 35);
 
+    /*mostrando todos os widgets dentro de janela*/
     gtk_widget_show_all(window);
 
+    /*entrando no loop main. esperando sinais do usuário*/
     gtk_main();
 
     return 0;
