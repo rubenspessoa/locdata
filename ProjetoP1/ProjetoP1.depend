@@ -2460,12 +2460,14 @@
 1399501168 source:/home/filipe/Documentos/ProjetoP1/main2.c
 	<gtk/gtk.h>
 
-1400605289 source:/home/filipe/Documentos/projeto/ProjetoP1/main.c
+1400702763 source:/home/filipe/Documentos/projeto/ProjetoP1/main.c
 	<gtk/gtk.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<sqlite3.h>
+	"janela_cadastro_de_empresas.h"
+	"janela_login_empresa.h"
 
 1399937568 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_inicial_locdata.c
 	<gtk/gtk.h>
@@ -2641,4 +2643,55 @@
 	<unicode/ucol.h>
 	<unicode/ubrk.h>
 	<unicode/utf16.h>
+
+1400701996 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_cadastro_de_empresas.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_cadastro_de_empresas.h"
+
+1400635749 /home/filipe/Documentos/projeto/ProjetoP1/janela_cadastro_de_empresas.h
+
+1400637132 /home/filipe/Documentos/projeto/ProjetoP1/janela_login_empresa.h
+
+1400675585 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_login_empresa.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_login_empresa.h"
+	"janela_principal.h"
+
+1400699618 /home/filipe/Documentos/projeto/ProjetoP1/janela_principal.h
+
+1400701032 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_principal.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_principal.h"
+	"janela_cadastro_de_empresas.h"
+	"janela_cadastro_de_clientes.h"
+
+1400700590 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_cadastro_de_clientes.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_cadastro_de_clientes.h"
+	"janela_cadastro_de_empresas.h"
+
+1400700125 /home/filipe/Documentos/projeto/ProjetoP1/janela_cadastro_de_clientes.h
+
+1400699814 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_locacao.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
 
