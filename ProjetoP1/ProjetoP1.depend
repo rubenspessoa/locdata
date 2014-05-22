@@ -2732,7 +2732,7 @@
 
 1400713289 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_cadastro_de_clientes.h
 
-1400724184 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/cadastros.c
+1400725960 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/cadastros.c
 	<gtk/gtk.h>
 	<stdio.h>
 	<stdlib.h>
@@ -2740,9 +2740,9 @@
 	<sqlite3.h>
 	"gtkLocData.h"
 
-1400724338 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/gtkLocData.h
+1400725854 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/gtkLocData.h
 
-1400724397 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/gtkLocData.c
+1400726165 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/gtkLocData.c
 	<gtk/gtk.h>
 	<stdio.h>
 	<stdlib.h>

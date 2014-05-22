@@ -352,17 +352,17 @@ void janela_principal () {
     fixed = gtk_fixed_new ();
     gtk_container_add (GTK_CONTAINER(vbox2), fixed);
 
-    button = button = gtk_button_new_with_label ("Locação");
+    button = gtk_button_new_with_label ("Locação");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_empresas), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 17);
     gtk_widget_set_size_request (button, 200, 42);
 
-    button = button = gtk_button_new_with_label ("Devolução");
+    button = gtk_button_new_with_label ("Devolução");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_empresas), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 77);
     gtk_widget_set_size_request (button, 200, 42);
 
-    button = button = gtk_button_new_with_label ("Cadastros");
+    button = gtk_button_new_with_label ("Cadastros");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_filmes), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 137);
     gtk_widget_set_size_request (button, 200, 42);

@@ -13,9 +13,9 @@ char sqlite_db [500];
 
 // VARIAVEIS GLOBAIS DO CADASTRO DE EMPRESA
 
-char empresa [30];
-char usuario [30];
-char senha [15];
+char empresa [200];
+char usuario [200];
+char senha [200];
 
 void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
 
@@ -88,8 +88,7 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
 
 void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
 
-    if (entry_text_cadastro_empresa == NULL || entry_text_cadastro_usuario == NULL || entry_text_cadastro_senha == NULL || strcmp (entry_text_cadastro_empresa, "\0") == 0 || strcmp (entry_text_cadastro_usuario, "\0") == 0 || strcmp (entry_text_cadastro_senha, "\0") == 0)
-    {
+    if (entry_text_cadastro_empresa == NULL || entry_text_cadastro_usuario == NULL || entry_text_cadastro_senha == NULL || strcmp (entry_text_cadastro_empresa, "") == 0 || strcmp (entry_text_cadastro_usuario, "") == 0 || strcmp (entry_text_cadastro_senha, "") == 0) {
         dialog_err_entry_vazio(wid, win);
     }
 
@@ -102,46 +101,64 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
         sqlite3 *db;
         char *zErrMsg = 0;
         int rc;
-        char sql[300];
+        char *sql;
         const char* data = "Callback function called";
 
         rc = sqlite3_open("test.db", &db);
-        if(rc)
-        {
+
+        if(rc) {
             fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
             exit(0);
-        }
-        else
-        {
+        } else {
             fprintf(stderr, "Banco de Dados iniciado com sucesso\n");
         }
 
-        sprintf (sql, "INSERT INTO CADASTRO_LOCDATA_EMPRESAS ( EMPRESA,ADMIN,SENHA ) VALUES ( '%s', '%s', '%s' );", empresa, usuario, senha);
+        sql = "CREATE TABLE ADMIN("  \
+         "EMPRESA           TEXT    NOT NULL," \
+         "ADMIN             TEXT     NOT NULL," \
+         "SENHA             TEXT);";
 
         rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
-        if(rc != SQLITE_OK)
-        {
+        if(rc != SQLITE_OK) {
             fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
+        } else {
+            fprintf(stdout, "Table created successfully\n");
         }
-        else
-        {
+
+        sql = "CREATE TABLE FILMES("  \
+         "NOME           TEXT     NOT NULL," \
+         "GENERO         TEXT," \
+         "ANO            TEXT);";
+
+        rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+        if(rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        } else {
+            fprintf(stdout, "Table created successfully\n");
+        }
+
+        sprintf (sql, "INSERT INTO ADMIN(EMPRESA, ADMIN, SENHA) VALUES('%s','%s','%s');", empresa, usuario, senha);
+
+        rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
+
+        if(rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        } else {
             fprintf(stdout, "Dados gravados com sucesso\n");
         }
 
-        sprintf (sql, "SELECT * from CADASTRO_LOCDATA_EMPRESAS;");
+        sprintf (sql, "SELECT * from ADMIN;");
 
         rc = sqlite3_exec(db, sql, callback_visualizar_dados, (void*)data, &zErrMsg);
-
-        if(rc != SQLITE_OK)
-
-        {
+        if( rc != SQLITE_OK ) {
             fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
-        }
-        else
-        {
+        } else {
             fprintf(stdout, "Operation done successfully\n");
         }
 
