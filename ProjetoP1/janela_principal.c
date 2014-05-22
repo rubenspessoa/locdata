@@ -3,23 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sqlite3.h>
-#include "janela_principal.h"
-#include "janela_cadastro_de_empresas.h"
-#include "janela_cadastro_de_clientes.h"
+#include "cadastros.h"
+#include "gtkLocData.h"
 
 const gchar *entry_text_busca = NULL;
 char busca [50];
 
-void enter_callback_busca (GtkWidget *widget, GtkWidget *entry_busca)
-{
+void enter_callback_busca (GtkWidget *widget, GtkWidget *entry_busca) {
 
     entry_text_busca = gtk_entry_get_text (GTK_ENTRY (entry_busca));
     printf ("Buscando: %s\n", entry_text_busca);
 
 }
 
-void janela_principal ()
-{
+void janela_principal () {
     GtkWidget *window = NULL;
     GtkWidget *hbox;
     GtkWidget *vbox, *vbox2, *vbox3;

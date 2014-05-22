@@ -2480,14 +2480,16 @@
 1399992982 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_inicial_locdata.c
 	<gtk/gtk.h>
 
-1400041405 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/main.c
+1400721259 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/main.c
 	<gtk/gtk.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<sqlite3.h>
+	"cadastros.h"
+	"gtkLocData.h"
 
-1396581704 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/sqlite/sqlite3.c
+1400606826 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/sqlite/sqlite3.c
 	"mingw.h"
 	"_mingw.h"
 	<stdarg.h>
@@ -2694,4 +2696,59 @@
 	<stdlib.h>
 	<string.h>
 	<sqlite3.h>
+
+1400713289 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_cadastro_de_empresas.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_cadastro_de_empresas.h"
+
+1400713289 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_cadastro_de_empresas.h
+
+1400713289 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_login_empresa.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_login_empresa.h"
+	"janela_principal.h"
+
+1400713289 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_login_empresa.h
+
+1400713289 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_principal.h
+
+1400713289 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_principal.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"janela_principal.h"
+	"janela_cadastro_de_empresas.h"
+	"janela_cadastro_de_clientes.h"
+
+1400713289 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/janela_cadastro_de_clientes.h
+
+1400724184 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/cadastros.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"gtkLocData.h"
+
+1400724338 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/gtkLocData.h
+
+1400724397 source:/home/rubens/Documents/projetoP1-UFAL/ProjetoP1/gtkLocData.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"cadastros.h"
+
+1400722139 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/cadastros.h
 

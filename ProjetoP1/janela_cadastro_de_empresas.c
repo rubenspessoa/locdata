@@ -12,43 +12,37 @@ char empresa [30];
 char usuario [30];
 char senha [15];
 
-void enter_callback1 (GtkWidget *widget, GtkWidget *entry1)
-{
+void enter_callback1 (GtkWidget *widget, GtkWidget *entry1) {
 
     entry_text_cadastro_empresa = gtk_entry_get_text (GTK_ENTRY (entry1));
     printf ("Empresa: %s\n", entry_text_cadastro_empresa);
 
 }
 
-void enter_callback2 (GtkWidget *widget, GtkWidget *entry2)
-{
+void enter_callback2 (GtkWidget *widget, GtkWidget *entry2) {
 
     entry_text_cadastro_usuario = gtk_entry_get_text (GTK_ENTRY (entry2));
     printf ("Usuario: %s\n", entry_text_cadastro_usuario);
 
 }
 
-void enter_callback3 (GtkWidget *widget, GtkWidget *entry3)
-{
+void enter_callback3 (GtkWidget *widget, GtkWidget *entry3) {
 
     entry_text_cadastro_senha = gtk_entry_get_text (GTK_ENTRY (entry3));
     printf ("Senha: %s\n", entry_text_cadastro_senha);
 
 }
 
-void entry_toggle_visibility (GtkWidget *checkbutton, GtkWidget *entry)
-{
+void entry_toggle_visibility (GtkWidget *checkbutton, GtkWidget *entry) {
 
   gtk_entry_set_visibility (GTK_ENTRY (entry), GTK_TOGGLE_BUTTON (checkbutton)->active);
 
 }
 
-int callback(void *NotUsed, int argc, char **argv, char **azColName)
-{
+int callback(void *NotUsed, int argc, char **argv, char **azColName) {
     int i;
 
-    for(i = 0; i < argc; i ++)
-    {
+    for(i = 0; i < argc; i ++) {
         printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
     }
     printf("\n");
@@ -56,8 +50,7 @@ int callback(void *NotUsed, int argc, char **argv, char **azColName)
     return 0;
 }
 
-int callback_visualizar_dados(void *data, int argc, char **argv, char **azColName)
-{
+int callback_visualizar_dados(void *data, int argc, char **argv, char **azColName) {
     int i;
     fprintf(stderr, "%s: ", (const char*)data);
 
@@ -71,8 +64,7 @@ int callback_visualizar_dados(void *data, int argc, char **argv, char **azColNam
     return 0;
 }
 
-void janela_cadastro (GtkWidget *wid, GtkWidget *win)
-{
+void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
 
     /*caso nada tenha sido digitado em algum campo*/
     /*uma caixa de diálogo pede para que o preenchimento seja completo*/
@@ -151,8 +143,7 @@ void janela_cadastro (GtkWidget *wid, GtkWidget *win)
 
 }
 
-void janela_cadastro_de_empresas ()
-{
+void janela_cadastro_de_empresas () {
 
     GtkWidget *window;
     GtkWidget *vbox, *hbox;
@@ -233,7 +224,7 @@ void janela_cadastro_de_empresas ()
 
     /*criando um botão de "salvar"*/
     button = gtk_button_new_with_label ("Salvar");
-    g_signal_connect (button, "clicked", G_CALLBACK (janela_cadastro), window);
+    g_signal_connect (button, "clicked", G_CALLBACK (cadastro_de_empresa), window);
     gtk_fixed_put(GTK_FIXED(fixed), button, 1, 15);
     gtk_widget_set_size_request(button, 150, 35);
     gtk_widget_show(button);

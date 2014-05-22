@@ -3,18 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sqlite3.h>
-#include "janela_cadastro_de_empresas.h"
-#include "janela_login_empresa.h"
-
-void sobre_o_locdata (GtkWidget *wid, GtkWidget *win)
-{
-    GtkWidget *dialog = NULL;
-
-    dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "O LocData nasceu de uma necessidade: tornar a busca pelo seu filme predileto mais simples.\n\nPensando nisso, Eduardo Lúcio, Filipe Falcão, Gustavo Gobbi, Matheus Sales e Rubens Pessoa se encarregaram deste desafio como nosso projeto de Programação 1 orientado pelo professor Rodrigo Paes.\n\nEnjoy!\n");
-    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-    gtk_dialog_run (GTK_DIALOG (dialog));
-    gtk_widget_destroy (dialog);
-}
+#include "cadastros.h"
+#include "gtkLocData.h"
 
 int main (int argc, char *argv [])
 {
@@ -43,11 +33,11 @@ int main (int argc, char *argv [])
     gtk_container_add (GTK_CONTAINER (window), vbox);
 
     /*inserindo imagem: logo do LocData*/
-    image = gtk_image_new_from_file ("/home/filipe/Documentos/projeto/locdatalogonobg130x130.png");
+    image = gtk_image_new_from_file ("locdatalogonobg130x130.png");
     gtk_box_pack_start (GTK_BOX (vbox), image, TRUE, TRUE, 0);
 
     /*inserindo imagem: nome colorido do LocData*/
-    image2 = gtk_image_new_from_file("/home/filipe/Documentos/projeto/locdataname.png");
+    image2 = gtk_image_new_from_file("locdataname.png");
     gtk_box_pack_start (GTK_BOX (vbox), image2, TRUE, TRUE, 0);
 
     /*criando widget fixed*/

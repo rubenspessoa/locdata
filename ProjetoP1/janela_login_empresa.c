@@ -27,8 +27,7 @@ void enter_callback5 (GtkWidget *widget, GtkWidget *entry2)
 
 }
 
-void janela_login ()
-{
+void janela_login () {
     GtkWidget *window;
     GtkWidget *vbox;
     GtkWidget *fixed;

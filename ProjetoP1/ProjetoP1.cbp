@@ -37,17 +37,14 @@
 			<Add option="-lpthread" />
 			<Add option="-ldl" />
 		</Linker>
-		<Unit filename="janela_cadastro_de_empresas.c">
+		<Unit filename="cadastros.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="janela_cadastro_de_empresas.h" />
-		<Unit filename="janela_login_empresa.c">
+		<Unit filename="cadastros.h" />
+		<Unit filename="gtkLocData.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="janela_login_empresa.h" />
-		<Unit filename="janela_principal.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="gtkLocData.h" />
 		<Unit filename="janela_principal.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />

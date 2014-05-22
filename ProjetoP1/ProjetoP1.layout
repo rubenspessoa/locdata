@@ -1,61 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1870" topLine="24" />
+			<Cursor1 position="147" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="janela_login_empresa.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="cadastros.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2695" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="14" />
-			<Collapse line="22" />
-		</Folding>
-	</File>
-	<File name="janela_principal.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2082" topLine="33" />
+			<Cursor1 position="122" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="janela_cadastro_de_empresas.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="gtkLocData.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="221" topLine="0" />
+			<Cursor1 position="818" topLine="4" />
 		</Cursor>
 	</File>
-	<File name="janela_principal.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="janela_principal.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="25" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="janela_login_empresa.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="gtkLocData.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="72" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="janela_cadastro_de_empresas.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4696" topLine="35" />
+			<Cursor1 position="10650" topLine="0" />
 		</Cursor>
 		<Folding>
-			<Collapse line="15" />
-			<Collapse line="23" />
 			<Collapse line="31" />
-			<Collapse line="39" />
-			<Collapse line="46" />
-			<Collapse line="50" />
-			<Collapse line="59" />
+			<Collapse line="41" />
+			<Collapse line="52" />
 			<Collapse line="64" />
-			<Collapse line="74" />
-			<Collapse line="90" />
-			<Collapse line="103" />
-			<Collapse line="108" />
-			<Collapse line="117" />
-			<Collapse line="122" />
-			<Collapse line="132" />
-			<Collapse line="137" />
+			<Collapse line="79" />
+			<Collapse line="86" />
+			<Collapse line="93" />
+			<Collapse line="100" />
+			<Collapse line="169" />
+			<Collapse line="176" />
+			<Collapse line="183" />
+			<Collapse line="190" />
+			<Collapse line="196" />
+			<Collapse line="288" />
+			<Collapse line="293" />
+			<Collapse line="302" />
+			<Collapse line="309" />
+			<Collapse line="318" />
+			<Collapse line="398" />
+		</Folding>
+	</File>
+	<File name="cadastros.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="558" topLine="3" />
+		</Cursor>
+		<Folding>
+			<Collapse line="19" />
+			<Collapse line="88" />
 		</Folding>
 	</File>
 </CodeBlocks_layout_file>
