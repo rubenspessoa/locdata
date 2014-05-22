@@ -2460,14 +2460,14 @@
 1399501168 source:/home/filipe/Documentos/ProjetoP1/main2.c
 	<gtk/gtk.h>
 
-1400702763 source:/home/filipe/Documentos/projeto/ProjetoP1/main.c
+1400750928 source:/home/filipe/Documentos/projeto/ProjetoP1/main.c
 	<gtk/gtk.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<sqlite3.h>
-	"janela_cadastro_de_empresas.h"
-	"janela_login_empresa.h"
+	"cadastros.h"
+	"gtkLocData.h"
 
 1399937568 source:/home/filipe/Documentos/projeto/ProjetoP1/janela_inicial_locdata.c
 	<gtk/gtk.h>
@@ -2751,4 +2751,24 @@
 	"cadastros.h"
 
 1400722139 /home/rubens/Documents/projetoP1-UFAL/ProjetoP1/cadastros.h
+
+1400769157 source:/home/filipe/Documentos/projeto/ProjetoP1/cadastros.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"gtkLocData.h"
+
+1400750928 /home/filipe/Documentos/projeto/ProjetoP1/gtkLocData.h
+
+1400778663 source:/home/filipe/Documentos/projeto/ProjetoP1/gtkLocData.c
+	<gtk/gtk.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sqlite3.h>
+	"cadastros.h"
+
+1400750928 /home/filipe/Documentos/projeto/ProjetoP1/cadastros.h
 

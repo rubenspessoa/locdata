@@ -13,6 +13,9 @@ char sqlite_db [500];
 
 // VARIAVEIS GLOBAIS DO CADASTRO DE EMPRESA
 
+const gchar *entry_text_cadastro_empresa;
+const gchar *entry_text_cadastro_usuario;
+const gchar *entry_text_cadastro_senha;
 char empresa [200];
 char usuario [200];
 char senha [200];
@@ -79,6 +82,7 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
             gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
             gtk_dialog_run (GTK_DIALOG (dialog));
             gtk_widget_destroy (dialog);
+            gtk_widget_destroy (win);
 
             sqlite3_close(db);
 
@@ -101,7 +105,7 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
         sqlite3 *db;
         char *zErrMsg = 0;
         int rc;
-        char *sql;
+        char sql [300];
         const char* data = "Callback function called";
 
         rc = sqlite3_open("test.db", &db);
@@ -113,35 +117,7 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
             fprintf(stderr, "Banco de Dados iniciado com sucesso\n");
         }
 
-        sql = "CREATE TABLE ADMIN("  \
-         "EMPRESA           TEXT    NOT NULL," \
-         "ADMIN             TEXT     NOT NULL," \
-         "SENHA             TEXT);";
-
-        rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-
-        if(rc != SQLITE_OK) {
-            fprintf(stderr, "SQL error: %s\n", zErrMsg);
-            sqlite3_free(zErrMsg);
-        } else {
-            fprintf(stdout, "Table created successfully\n");
-        }
-
-        sql = "CREATE TABLE FILMES("  \
-         "NOME           TEXT     NOT NULL," \
-         "GENERO         TEXT," \
-         "ANO            TEXT);";
-
-        rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
-
-        if(rc != SQLITE_OK) {
-            fprintf(stderr, "SQL error: %s\n", zErrMsg);
-            sqlite3_free(zErrMsg);
-        } else {
-            fprintf(stdout, "Table created successfully\n");
-        }
-
-        sprintf (sql, "INSERT INTO ADMIN(EMPRESA, ADMIN, SENHA) VALUES('%s','%s','%s');", empresa, usuario, senha);
+        sprintf (sql, "INSERT INTO ADMIN (EMPRESA, ADMIN, SENHA) VALUES('%s','%s','%s');", empresa, usuario, senha);
 
         rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
@@ -170,6 +146,7 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
         gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
         gtk_dialog_run (GTK_DIALOG (dialog));
         gtk_widget_destroy (dialog);
+        gtk_widget_destroy (win);
     }
 
 }
