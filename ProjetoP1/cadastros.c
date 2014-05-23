@@ -4,6 +4,8 @@
 #include <string.h>
 #include <sqlite3.h>
 #include "gtkLocData.h"
+#include "cadastros.h"
+#include "login.h"
 
 // VARIAVEIS GLOBAIS DO CADASTRO DE FILMES
 char nome_filme_aux[200];
@@ -20,25 +22,37 @@ char empresa [200];
 char usuario [200];
 char senha [200];
 
-void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
+//VARIAVEIS GLOBAIS DO CADASTRO DE CLIENTES
+const gchar *cliente_cpf;
+const gchar *cliente_email;
+const gchar *cliente_endereco;
+const gchar *cliente_nome;
+const gchar *cliente_telefone;
 
-    if (nome_filme == NULL || genero_filme == NULL || ano_filme == NULL) {
+void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win)
+{
+
+    if (nome_filme == NULL || genero_filme == NULL || ano_filme == NULL)
+    {
 
         // FUNCAO DE ERRO: ALGUMA ENTRADA VAZIA
         dialog_err_entry_vazio(widget, win);
 
-    } else {
+    }
+    else
+    {
 
         strcpy(nome_filme_aux, nome_filme);
         strcpy(genero_filme_aux, genero_filme);
         strcpy(ano_filme_aux, ano_filme);
 
-        if ((strcmp(nome_filme_aux, "") == 0) || (strcmp(genero_filme_aux, "") == 0) || (strcmp(ano_filme_aux, "") == 0) ) {
-
+        if ((strcmp(nome_filme_aux, "") == 0) || (strcmp(genero_filme_aux, "") == 0) || (strcmp(ano_filme_aux, "") == 0) )
+        {
             // FUNCAO DE ERRO: ALGUMA ENTRADA VAZIA
             dialog_err_entry_vazio(widget, win);
-
-        } else {
+        }
+        else
+        {
             sqlite3 *db;
             char *zErrMsg = 0;
             int rc;
@@ -47,10 +61,13 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
 
             rc = sqlite3_open("test.db", &db);
 
-            if (rc) {
+            if (rc)
+            {
                 fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
                 exit(0);
-            } else {
+            }
+            else
+            {
                 fprintf(stderr, "Banco de Dados iniciado com sucesso\n");
             }
 
@@ -58,10 +75,13 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
 
             rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
-            if (rc != SQLITE_OK) {
+            if (rc != SQLITE_OK)
+            {
                 fprintf(stderr, "SQL error: %s\n", zErrMsg);
                 sqlite3_free(zErrMsg);
-            }  else {
+            }
+            else
+            {
                 fprintf(stdout, "Dados gravados com sucesso em FILMES\n");
             }
 
@@ -69,10 +89,13 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
 
             rc = sqlite3_exec(db, sql, callback_visualizar_dados, (void*)data, &zErrMsg);
 
-            if (rc != SQLITE_OK) {
+            if (rc != SQLITE_OK)
+            {
                 fprintf(stderr, "SQL error: %s\n", zErrMsg);
                 sqlite3_free(zErrMsg);
-            } else {
+            }
+            else
+            {
                 fprintf(stdout, "Operation done successfully\n");
             }
 
@@ -90,9 +113,11 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win) {
     }
 }
 
-void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
+void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win)
+{
 
-    if (entry_text_cadastro_empresa == NULL || entry_text_cadastro_usuario == NULL || entry_text_cadastro_senha == NULL || strcmp (entry_text_cadastro_empresa, "") == 0 || strcmp (entry_text_cadastro_usuario, "") == 0 || strcmp (entry_text_cadastro_senha, "") == 0) {
+    if (entry_text_cadastro_empresa == NULL || entry_text_cadastro_usuario == NULL || entry_text_cadastro_senha == NULL || strcmp (entry_text_cadastro_empresa, "") == 0 || strcmp (entry_text_cadastro_usuario, "") == 0 || strcmp (entry_text_cadastro_senha, "") == 0)
+    {
         dialog_err_entry_vazio(wid, win);
     }
 
@@ -110,10 +135,13 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
 
         rc = sqlite3_open("test.db", &db);
 
-        if(rc) {
+        if(rc)
+        {
             fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
             exit(0);
-        } else {
+        }
+        else
+        {
             fprintf(stderr, "Banco de Dados iniciado com sucesso\n");
         }
 
@@ -121,20 +149,26 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
 
         rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 
-        if(rc != SQLITE_OK) {
+        if(rc != SQLITE_OK)
+        {
             fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
-        } else {
+        }
+        else
+        {
             fprintf(stdout, "Dados gravados com sucesso\n");
         }
 
         sprintf (sql, "SELECT * from ADMIN;");
 
         rc = sqlite3_exec(db, sql, callback_visualizar_dados, (void*)data, &zErrMsg);
-        if( rc != SQLITE_OK ) {
+
+        if( rc != SQLITE_OK )
+        {
             fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
-        } else {
+        } else
+        {
             fprintf(stdout, "Operation done successfully\n");
         }
 
@@ -151,5 +185,20 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win) {
 
 }
 
+void cadastro_de_clientes (GtkWidget *wid, GtkWidget *win)
+{
+    if (cliente_cpf == NULL || cliente_email == NULL || cliente_endereco == NULL || cliente_nome == NULL || cliente_telefone == NULL || strcmp (cliente_cpf, "\0") == 0 || strcmp (cliente_email, "\0") == 0 || strcmp (cliente_endereco, "\0") == 0 || strcmp (cliente_nome, "\0") == 0 || strcmp (cliente_telefone, "\0") == 0)
+    {
+        dialog_err_entry_vazio (wid, win);
+    }
+    else
+    {
+        GtkWidget *dialog = NULL;
 
-
+        dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Seus dados foram salvos com sucesso.\n");
+        gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+        gtk_widget_destroy (win);
+    }
+}

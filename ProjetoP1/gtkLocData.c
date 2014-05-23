@@ -4,12 +4,15 @@
 #include <string.h>
 #include <sqlite3.h>
 #include "cadastros.h"
+#include "gtkLocData.h"
+#include "login.h"
 
 // VARIAVEIS GLOBAIS DO CADASTRO DE FILMES
 const gchar *nome_filme = NULL;
 const gchar *genero_filme = NULL;
 const gchar *ano_filme = NULL;
 
+//VARIAVEIS GLOBAIS DO CADASTRO DE CLIENTES
 const gchar *cliente_cpf = NULL;
 const gchar *cliente_nome = NULL;
 const gchar *cliente_email = NULL;
@@ -17,21 +20,27 @@ const gchar *cliente_endereco = NULL;
 const gchar *cliente_telefone = NULL;
 
 // VARIAVEIS GLOBAIS DO CADASTRO DE EMPRESA
-
 const gchar *entry_text_cadastro_empresa = NULL;
 const gchar *entry_text_cadastro_usuario = NULL;
 const gchar *entry_text_cadastro_senha = NULL;
 
-//  VARIAVEIS GLOBAIS DA BUSCA POR FILMES
+// VARIAVEIS GLOBAIS DA BUSCA POR FILMES
 const gchar *entry_text_busca = NULL;
 char busca [50];
 
 // VARIAVEIS GLOBAIS DO LOGIN LOCDATA
-
 const gchar *entry_text_login_usuario = NULL;
 const gchar *entry_text_login_senha = NULL;
 char usuario_login [30];
 char senha_login [15];
+
+// VARIAVEIS GLOBAIS DE LOCACAO
+const gchar *locacao_cpf = NULL;
+const gchar *locacao_codigo = NULL;
+
+// VARIAVEIS GLOBAIS DE DEVOLUCAO
+const gchar *devolucao_cpf = NULL;
+const gchar *devolucao_codigo = NULL;
 
 // FUNCOES AUXILIARES
 
@@ -99,7 +108,7 @@ int callback_visualizar_dados(void *data, int argc, char **argv, char **azColNam
 
 // FUNCOES GTK DO CADASTRO DE FILMES
 
-static void enter_nome_filme (GtkWidget *widget, GtkWidget *entry)
+void enter_nome_filme (GtkWidget *widget, GtkWidget *entry)
 {
 
     nome_filme = gtk_entry_get_text(GTK_ENTRY(entry));
@@ -107,7 +116,7 @@ static void enter_nome_filme (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_genero_filme (GtkWidget *widget, GtkWidget *entry)
+void enter_genero_filme (GtkWidget *widget, GtkWidget *entry)
 {
 
     genero_filme = gtk_entry_get_text (GTK_ENTRY(entry));
@@ -115,7 +124,7 @@ static void enter_genero_filme (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_ano_filme (GtkWidget *widget, GtkWidget *entry)
+void enter_ano_filme (GtkWidget *widget, GtkWidget *entry)
 {
 
     ano_filme = gtk_entry_get_text (GTK_ENTRY(entry));
@@ -123,7 +132,7 @@ static void enter_ano_filme (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_cliente_cpf (GtkWidget *widget, GtkWidget *entry)
+void enter_cliente_cpf (GtkWidget *widget, GtkWidget *entry)
 {
 
     cliente_cpf = gtk_entry_get_text (GTK_ENTRY(entry));
@@ -131,7 +140,7 @@ static void enter_cliente_cpf (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_cliente_nome (GtkWidget *widget, GtkWidget *entry)
+void enter_cliente_nome (GtkWidget *widget, GtkWidget *entry)
 {
 
     cliente_nome = gtk_entry_get_text (GTK_ENTRY(entry));
@@ -139,7 +148,7 @@ static void enter_cliente_nome (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_cliente_email (GtkWidget *widget, GtkWidget *entry)
+void enter_cliente_email (GtkWidget *widget, GtkWidget *entry)
 {
 
     cliente_email = gtk_entry_get_text (GTK_ENTRY(entry));
@@ -147,7 +156,7 @@ static void enter_cliente_email (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_cliente_endereco (GtkWidget *widget, GtkWidget *entry)
+void enter_cliente_endereco (GtkWidget *widget, GtkWidget *entry)
 {
 
     cliente_endereco = gtk_entry_get_text (GTK_ENTRY(entry));
@@ -155,12 +164,36 @@ static void enter_cliente_endereco (GtkWidget *widget, GtkWidget *entry)
 
 }
 
-static void enter_cliente_telefone (GtkWidget *widget, GtkWidget *entry)
+void enter_cliente_telefone (GtkWidget *widget, GtkWidget *entry)
 {
 
     cliente_telefone = gtk_entry_get_text (GTK_ENTRY(entry));
     printf ("Telefone: %s\n", cliente_telefone);
 
+}
+
+void enter_locacao_cpf (GtkWidget *widget, GtkWidget *entry)
+{
+    locacao_cpf = gtk_entry_get_text (GTK_ENTRY (entry));
+    printf ("CPF: %s\n", locacao_cpf);
+}
+
+void enter_locacao_codigo (GtkWidget *widget, GtkWidget *entry)
+{
+    locacao_codigo = gtk_entry_get_text (GTK_ENTRY (entry));
+    printf ("Codigo: %s\n", locacao_codigo);
+}
+
+void enter_devolucao_codigo (GtkWidget *widget, GtkWidget *entry)
+{
+    devolucao_codigo = gtk_entry_get_text (GTK_ENTRY (entry));
+    printf ("Codigo: %s\n", devolucao_codigo);
+}
+
+void enter_devolucao_cpf (GtkWidget *widget, GtkWidget *entry)
+{
+    devolucao_cpf = gtk_entry_get_text (GTK_ENTRY (entry));
+    printf ("CPF: %s\n", devolucao_cpf);
 }
 
 void janela_cadastro_de_clientes ()
@@ -176,6 +209,7 @@ void janela_cadastro_de_clientes ()
 
     /*criando janela*/
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (window), 600, 400);
     gtk_window_set_title (GTK_WINDOW (window), "Registro de clientes LocData");
@@ -253,8 +287,8 @@ void janela_cadastro_de_clientes ()
 
     /*criando um botão de "salvar"*/
     button = gtk_button_new_with_label ("Salvar");
-    g_signal_connect (button, "clicked", G_CALLBACK (dados_salvos), window);
-    gtk_fixed_put(GTK_FIXED(fixed), button, 1, 15);
+    g_signal_connect (button, "clicked", G_CALLBACK (cadastro_de_clientes), window);
+    gtk_fixed_put(GTK_FIXED(fixed), button, 430, 15);
     gtk_widget_set_size_request(button, 150, 35);
     gtk_widget_show(button);
 
@@ -269,6 +303,7 @@ void janela_cadastro_de_filmes()
     gint tmp_pos;
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_position(GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request(GTK_WIDGET (window), 400, 250);
     gtk_window_set_title(GTK_WINDOW (window), "Cadastro de Filmes");
@@ -278,7 +313,7 @@ void janela_cadastro_de_filmes()
     gtk_container_add (GTK_CONTAINER (window), vbox);
     gtk_widget_show (vbox);
 
-    label = gtk_label_new ("Insira abaixo o nome do filme.");
+    label = gtk_label_new ("Insira abaixo o nome do filme");
     gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
@@ -291,7 +326,7 @@ void janela_cadastro_de_filmes()
     gtk_box_pack_start(GTK_BOX(vbox), nomeEntry, TRUE, TRUE, 0);
     gtk_widget_show(nomeEntry);
 
-    label = gtk_label_new ("Insira abaixo o genero do filme.");
+    label = gtk_label_new ("Insira abaixo o genero do filme");
     gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
@@ -304,7 +339,7 @@ void janela_cadastro_de_filmes()
     gtk_box_pack_start(GTK_BOX(vbox), generoEntry, TRUE, TRUE, 0);
     gtk_widget_show(generoEntry);
 
-    label = gtk_label_new ("Insira abaixo o ano do filme.");
+    label = gtk_label_new ("Insira abaixo o ano do filme");
     gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
@@ -378,6 +413,7 @@ void janela_cadastro_de_empresas ()
 
     /*criando janela*/
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (window), 500, 300);
     gtk_window_set_title (GTK_WINDOW (window), "Registro de empresa LocData");
@@ -445,7 +481,7 @@ void janela_cadastro_de_empresas ()
     /*criando um botão de "salvar"*/
     button = gtk_button_new_with_label ("Salvar");
     g_signal_connect (button, "clicked", G_CALLBACK(cadastro_de_empresas), window);
-    gtk_fixed_put(GTK_FIXED(fixed), button, 1, 15);
+    gtk_fixed_put(GTK_FIXED(fixed), button, 330, 15);
     gtk_widget_set_size_request(button, 150, 35);
     gtk_widget_show(button);
 
@@ -487,38 +523,46 @@ void voltar_locacao (GtkWidget *wid, GtkWidget *win)
 
 void locacao_confirmacao (GtkWidget *wid, GtkWidget *win)
 {
-    GtkWidget *window;
-    GtkWidget *vbox;
-    GtkWidget *fixed;
-    GtkWidget *label;
-    GtkWidget *button;
+    if (locacao_codigo == NULL || locacao_cpf == NULL || strcmp (locacao_codigo, "\0") == 0 || strcmp (locacao_cpf, "\0") == 0)
+    {
+        dialog_err_entry_vazio(wid, win);
+    }
+    else
+    {
+        GtkWidget *window;
+        GtkWidget *vbox;
+        GtkWidget *fixed;
+        GtkWidget *label;
+        GtkWidget *button;
 
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (window), "Locação de filmes");
-    gtk_widget_set_size_request (GTK_WIDGET (window), 350, 210);
-    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
-    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+        window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+        gtk_window_set_resizable (window, FALSE);
+        gtk_window_set_title (GTK_WINDOW (window), "Locação de filmes");
+        gtk_widget_set_size_request (GTK_WIDGET (window), 350, 210);
+        gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+        gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
 
-    vbox = gtk_vbox_new (FALSE, 0);
-    gtk_container_add (GTK_CONTAINER (window), vbox);
+        vbox = gtk_vbox_new (FALSE, 0);
+        gtk_container_add (GTK_CONTAINER (window), vbox);
 
-    label = gtk_label_new ("Nome do cliente: %s\nCPF do cliente: %s\nNome do filme: %s\nCódigo do filme: %s\nDevolução: %s\n\nConfirmar locação?");
-    gtk_container_add (GTK_CONTAINER (vbox), label);
+        label = gtk_label_new ("Nome do cliente: %s\nCPF do cliente: %s\nNome do filme: %s\nCódigo do filme: %s\nDevolução: %s\n\nConfirmar locação?");
+        gtk_container_add (GTK_CONTAINER (vbox), label);
 
-    fixed = gtk_fixed_new ();
-    gtk_container_add (GTK_CONTAINER (vbox), fixed);
+        fixed = gtk_fixed_new ();
+        gtk_container_add (GTK_CONTAINER (vbox), fixed);
 
-    button = gtk_button_new_with_label ("Voltar");
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (voltar_locacao), (gpointer) window);
-    gtk_fixed_put (GTK_FIXED (fixed), button, 10, 15);
-    gtk_widget_set_size_request (button, 100, 35);
+        button = gtk_button_new_with_label ("Voltar");
+        g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (voltar_locacao), (gpointer) window);
+        gtk_fixed_put (GTK_FIXED (fixed), button, 10, 15);
+        gtk_widget_set_size_request (button, 100, 35);
 
-    button = gtk_button_new_with_label ("Confirmar");
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (voltar_locacao), (gpointer) window);
-    gtk_fixed_put (GTK_FIXED (fixed), button, 219, 15);
-    gtk_widget_set_size_request (button, 100, 35);
+        button = gtk_button_new_with_label ("Confirmar");
+        g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (voltar_locacao), (gpointer) window);
+        gtk_fixed_put (GTK_FIXED (fixed), button, 219, 15);
+        gtk_widget_set_size_request (button, 100, 35);
 
-    gtk_widget_show_all (window);
+        gtk_widget_show_all (window);
+    }
 }
 
 void locacao ()
@@ -532,6 +576,7 @@ void locacao ()
     gint tmp_pos;
 
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_title (GTK_WINDOW (window), "Locação de filmes");
     gtk_widget_set_size_request (GTK_WIDGET (window), 380, 240);
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
@@ -545,7 +590,7 @@ void locacao ()
 
     entry1 = gtk_entry_new ();
     gtk_entry_set_max_length (GTK_ENTRY (entry1), 100);
-    g_signal_connect (entry1, "changed", G_CALLBACK (enter_callback_busca), entry1);
+    g_signal_connect (entry1, "changed", G_CALLBACK (enter_locacao_cpf), entry1);
     tmp_pos = GTK_ENTRY (entry1)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry1), 0, GTK_ENTRY (entry1)->text_length);
     gtk_box_pack_start (GTK_BOX (vbox), entry1, TRUE, TRUE, 0);
@@ -556,7 +601,7 @@ void locacao ()
 
     entry2 = gtk_entry_new ();
     gtk_entry_set_max_length (GTK_ENTRY (entry2), 100);
-    g_signal_connect (entry2, "changed", G_CALLBACK (enter_callback_busca), entry2);
+    g_signal_connect (entry2, "changed", G_CALLBACK (enter_locacao_codigo), entry2);
     tmp_pos = GTK_ENTRY (entry2)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry2), 0, GTK_ENTRY (entry2)->text_length);
     gtk_box_pack_start (GTK_BOX (vbox), entry2, TRUE, TRUE, 0);
@@ -567,6 +612,103 @@ void locacao ()
 
     button = gtk_button_new_with_label ("Ir");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (locacao_confirmacao), (gpointer) window);
+    gtk_fixed_put (GTK_FIXED (fixed), button, 259, 15);
+    gtk_widget_set_size_request (button, 100, 35);
+
+    gtk_widget_show_all (window);
+}
+
+void devolucao_confirmacao (GtkWidget *wid, GtkWidget *win)
+{
+    if (devolucao_codigo == NULL || devolucao_cpf == NULL || strcmp (devolucao_codigo, "\0") == 0 || strcmp (devolucao_cpf, "\0") == 0)
+    {
+        dialog_err_entry_vazio(wid, win);
+    }
+    else
+    {
+        GtkWidget *window;
+        GtkWidget *vbox;
+        GtkWidget *fixed;
+        GtkWidget *label;
+        GtkWidget *button;
+
+        window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+        gtk_window_set_resizable (window, FALSE);
+        gtk_window_set_title (GTK_WINDOW (window), "Locação de filmes");
+        gtk_widget_set_size_request (GTK_WIDGET (window), 350, 210);
+        gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+        gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+
+        vbox = gtk_vbox_new (FALSE, 0);
+        gtk_container_add (GTK_CONTAINER (window), vbox);
+
+        label = gtk_label_new ("Nome do cliente: %s\nCPF do cliente: %s\nNome do filme: %s\nCódigo do filme: %s\nDevolução: %s\n\nConfirmar devolução?");
+        gtk_container_add (GTK_CONTAINER (vbox), label);
+
+        fixed = gtk_fixed_new ();
+        gtk_container_add (GTK_CONTAINER (vbox), fixed);
+
+        button = gtk_button_new_with_label ("Voltar");
+        g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (voltar_locacao), (gpointer) window);
+        gtk_fixed_put (GTK_FIXED (fixed), button, 10, 15);
+        gtk_widget_set_size_request (button, 100, 35);
+
+        button = gtk_button_new_with_label ("Confirmar");
+        g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (voltar_locacao), (gpointer) window);
+        gtk_fixed_put (GTK_FIXED (fixed), button, 219, 15);
+        gtk_widget_set_size_request (button, 100, 35);
+
+        gtk_widget_show_all (window);
+    }
+}
+
+void devolucao ()
+{
+    GtkWidget *window;
+    GtkWidget *vbox;
+    GtkWidget *fixed;
+    GtkWidget *label;
+    GtkWidget *entry1, *entry2;
+    GtkWidget *button;
+    gint tmp_pos;
+
+    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
+    gtk_window_set_title (GTK_WINDOW (window), "Devolução de filmes");
+    gtk_widget_set_size_request (GTK_WIDGET (window), 380, 240);
+    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+    gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
+
+    vbox = gtk_vbox_new (FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (window), vbox);
+
+    label = gtk_label_new ("CPF do cliente:");
+    gtk_container_add (GTK_CONTAINER (vbox), label);
+
+    entry1 = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry1), 100);
+    g_signal_connect (entry1, "changed", G_CALLBACK (enter_devolucao_cpf), entry1);
+    tmp_pos = GTK_ENTRY (entry1)->text_length;
+    gtk_editable_select_region (GTK_EDITABLE (entry1), 0, GTK_ENTRY (entry1)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry1, TRUE, TRUE, 0);
+    gtk_widget_show (entry1);
+
+    label = gtk_label_new ("Código do filme:");
+    gtk_container_add (GTK_CONTAINER (vbox), label);
+
+    entry2 = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry2), 100);
+    g_signal_connect (entry2, "changed", G_CALLBACK (enter_devolucao_codigo), entry2);
+    tmp_pos = GTK_ENTRY (entry2)->text_length;
+    gtk_editable_select_region (GTK_EDITABLE (entry2), 0, GTK_ENTRY (entry2)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox), entry2, TRUE, TRUE, 0);
+    gtk_widget_show (entry2);
+
+    fixed = gtk_fixed_new ();
+    gtk_container_add (GTK_CONTAINER (vbox), fixed);
+
+    button = gtk_button_new_with_label ("Ir");
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (devolucao_confirmacao), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 259, 15);
     gtk_widget_set_size_request (button, 100, 35);
 
@@ -590,6 +732,7 @@ void janela_principal (GtkWidget *wid, GtkWidget *win)
     gint tmp_pos;
 
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_title (GTK_WINDOW (window), "Pesquisa");
     gtk_widget_set_size_request (GTK_WIDGET (window), 800, 500);
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
@@ -617,22 +760,25 @@ void janela_principal (GtkWidget *wid, GtkWidget *win)
     button = gtk_button_new_with_label ("Locação");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (locacao), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 17);
-    gtk_widget_set_size_request (button, 200, 42);
+    gtk_widget_set_size_request (button, 200, 34);
 
     button = gtk_button_new_with_label ("Devolução");
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_empresas), (gpointer) window);
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (devolucao), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 77);
-    gtk_widget_set_size_request (button, 200, 42);
+    gtk_widget_set_size_request (button, 200, 34);
 
     button = gtk_button_new_with_label ("Filmes");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_filmes), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 137);
-    gtk_widget_set_size_request (button, 200, 42);
+    gtk_widget_set_size_request (button, 200, 34);
 
     button = gtk_button_new_with_label ("Clientes");
     g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_cadastro_de_clientes), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 197);
-    gtk_widget_set_size_request (button, 200, 42);
+    gtk_widget_set_size_request (button, 200, 34);
+
+    label = gtk_label_new ("\n\n\n\n\n\n\n\n");
+    gtk_container_add (GTK_CONTAINER (vbox2), label);
 
     vbox = gtk_vbox_new (FALSE, 25);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
@@ -642,7 +788,7 @@ void janela_principal (GtkWidget *wid, GtkWidget *win)
     vbox2 = gtk_vbox_new (FALSE, 15);
     gtk_container_add (GTK_CONTAINER (frame), vbox2);
 
-    label = gtk_label_new ("\n  Encontre aqui de maneira rápida e precisa o que \n  você busca!  \n");
+    label = gtk_label_new ("\n  Encontre aqui de maneira rápida e precisa o que                                                                          \n  você busca!  \n");
     gtk_container_add (GTK_CONTAINER (vbox2), label);
 
     entry_busca = gtk_entry_new ();
@@ -653,7 +799,7 @@ void janela_principal (GtkWidget *wid, GtkWidget *win)
     gtk_box_pack_start (GTK_BOX (vbox2), entry_busca, TRUE, TRUE, 0);
     gtk_widget_show (entry_busca);
 
-    label = gtk_label_new ("\n\n\n\n\n\n\n\n");
+    label = gtk_label_new ("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     gtk_container_add (GTK_CONTAINER (vbox2), label);
 
     gtk_widget_show_all (window);
@@ -671,6 +817,7 @@ void janela_login ()
     gint tmp_pos;
 
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (window), 280, 210);
     gtk_window_set_title (GTK_WINDOW (window), "Login de Admin LocData");
@@ -708,7 +855,7 @@ void janela_login ()
     gtk_container_add (GTK_CONTAINER (vbox), fixed);
 
     button = gtk_button_new_with_label ("Entrar");
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (janela_principal), (gpointer) window);
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (validacao_login), (gpointer) window);
     gtk_fixed_put (GTK_FIXED (fixed), button, 160, 10);
     gtk_widget_set_size_request (button, 100, 35);
 

@@ -5,6 +5,7 @@
 #include <sqlite3.h>
 #include "cadastros.h"
 #include "gtkLocData.h"
+#include "login.h"
 
 int main (int argc, char *argv [])
 {
@@ -21,6 +22,7 @@ int main (int argc, char *argv [])
 
     /*criando janela*/
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_resizable (window, FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (window), 800, 500);
     gtk_window_set_title (GTK_WINDOW (window), "LocData");
