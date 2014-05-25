@@ -455,6 +455,7 @@ void janela_cadastro_de_empresas ()
 
     entry3 = gtk_entry_new ();
     gtk_entry_set_max_length (GTK_ENTRY (entry3), 15);
+    gtk_entry_set_visibility (entry3, FALSE);
     g_signal_connect (entry3, "changed", G_CALLBACK (enter_callback3), entry3);
     tmp_pos = GTK_ENTRY (entry3)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry3), 0, GTK_ENTRY (entry3)->text_length);
@@ -470,7 +471,7 @@ void janela_cadastro_de_empresas ()
     check = gtk_check_button_new_with_label ("Visualizar senha");
     gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
     g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry3);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), TRUE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
     gtk_widget_show (check);
 
     /*criando um widget fixed*/
