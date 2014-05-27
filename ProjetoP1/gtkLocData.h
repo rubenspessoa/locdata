@@ -20,6 +20,8 @@ extern const gchar *entry_text_login_senha;
 extern char usuario_login [30];
 extern char senha_login [15];
 
+extern char **argv;
+
 void dialog_err_entry_vazio(GtkWidget *widget, GtkWidget *win);
 void sobre_o_locdata (GtkWidget *wid, GtkWidget *win);
 void dados_salvos (GtkWidget *wid, GtkWidget *win);

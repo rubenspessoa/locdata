@@ -29,6 +29,15 @@ const gchar *cliente_endereco;
 const gchar *cliente_nome;
 const gchar *cliente_telefone;
 
+void maiusculo(char *p)
+{
+    while(*p)
+    {
+        *p=toupper(*p);
+        p++;
+    }
+}
+
 void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win)
 {
 
@@ -45,6 +54,10 @@ void cadastro_de_filmes(GtkWidget *widget, GtkWidget *win)
         strcpy(nome_filme_aux, nome_filme);
         strcpy(genero_filme_aux, genero_filme);
         strcpy(ano_filme_aux, ano_filme);
+
+        maiusculo (nome_filme_aux);
+        maiusculo (genero_filme_aux);
+        maiusculo (ano_filme_aux);
 
         if ((strcmp(nome_filme_aux, "") == 0) || (strcmp(genero_filme_aux, "") == 0) || (strcmp(ano_filme_aux, "") == 0) )
         {
@@ -127,6 +140,10 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win)
         strcpy (usuario, entry_text_cadastro_usuario);
         strcpy (senha, entry_text_cadastro_senha);
 
+        maiusculo (empresa);
+        maiusculo (usuario);
+        maiusculo (senha);
+
         sqlite3 *db;
         char *zErrMsg = 0;
         int rc;
@@ -163,11 +180,12 @@ void cadastro_de_empresas (GtkWidget *wid, GtkWidget *win)
 
         rc = sqlite3_exec(db, sql, callback_visualizar_dados, (void*)data, &zErrMsg);
 
-        if( rc != SQLITE_OK )
+        if(rc != SQLITE_OK)
         {
             fprintf(stderr, "SQL error: %s\n", zErrMsg);
             sqlite3_free(zErrMsg);
-        } else
+        }
+        else
         {
             fprintf(stdout, "Operation done successfully\n");
         }

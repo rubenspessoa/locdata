@@ -55,6 +55,16 @@ void dialog_err_entry_vazio(GtkWidget *widget, GtkWidget *win)
     gtk_widget_destroy (dialog);
 }
 
+void dialog_err_entry_digite_essa_porra_direito (GtkWidget *wid, GtkWidget *win)
+{
+    GtkWidget *dialog = NULL;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Por favor, preencha os campos com usuário e senha corretamente.\n");
+    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+}
+
 void sobre_o_locdata (GtkWidget *wid, GtkWidget *win)
 {
     GtkWidget *dialog = NULL;
@@ -94,7 +104,6 @@ int callback(void *NotUsed, int argc, char **argv, char **azColName)
 int callback_visualizar_dados(void *data, int argc, char **argv, char **azColName)
 {
     int i;
-    fprintf(stderr, "%s: ", (const char*)data);
 
     for(i = 0; i < argc; i ++)
     {
@@ -225,7 +234,7 @@ void janela_cadastro_de_clientes ()
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
     entry1 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry1), 100);
+    gtk_entry_set_max_length (GTK_ENTRY (entry1), 50);
     g_signal_connect (entry1, "changed", G_CALLBACK (enter_cliente_cpf), entry1);
     tmp_pos = GTK_ENTRY (entry1)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry1), 0, GTK_ENTRY (entry1)->text_length);
@@ -237,7 +246,7 @@ void janela_cadastro_de_clientes ()
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
     entry2 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry2), 50);
+    gtk_entry_set_max_length (GTK_ENTRY (entry2), 100);
     g_signal_connect (entry2, "changed", G_CALLBACK (enter_cliente_nome), entry2);
     tmp_pos = GTK_ENTRY (entry2)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry2), 0, GTK_ENTRY (entry2)->text_length);
@@ -249,7 +258,7 @@ void janela_cadastro_de_clientes ()
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
     entry3 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry3), 15);
+    gtk_entry_set_max_length (GTK_ENTRY (entry3), 50);
     g_signal_connect (entry3, "changed", G_CALLBACK (enter_cliente_email), entry3);
     tmp_pos = GTK_ENTRY (entry3)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry3), 0, GTK_ENTRY (entry3)->text_length);
@@ -261,7 +270,7 @@ void janela_cadastro_de_clientes ()
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
     entry4 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry4), 15);
+    gtk_entry_set_max_length (GTK_ENTRY (entry4), 100);
     g_signal_connect (entry4, "changed", G_CALLBACK (enter_cliente_endereco), entry4);
     tmp_pos = GTK_ENTRY (entry4)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry4), 0, GTK_ENTRY (entry4)->text_length);
@@ -273,7 +282,7 @@ void janela_cadastro_de_clientes ()
     gtk_box_pack_start (GTK_BOX (vbox), label, TRUE, TRUE, 0);
 
     entry5 = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry5), 15);
+    gtk_entry_set_max_length (GTK_ENTRY (entry5), 20);
     g_signal_connect (entry5, "changed", G_CALLBACK (enter_cliente_telefone), entry5);
     tmp_pos = GTK_ENTRY (entry5)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry5), 0, GTK_ENTRY (entry5)->text_length);
@@ -723,18 +732,20 @@ void janela_principal (GtkWidget *wid, GtkWidget *win)
     gtk_widget_destroy (win);
 
     GtkWidget *window = NULL;
-    GtkWidget *hbox;
+    GtkWidget *hbox, *hbox2, *hbox3, *hbox4;
     GtkWidget *vbox, *vbox2, *vbox3;
     GtkWidget *frame;
     GtkWidget *label;
     GtkWidget *button;
     GtkWidget *fixed;
+    GtkWidget *image;
     GtkWidget *entry_busca;
+    GtkWidget *check;
     gint tmp_pos;
 
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_resizable (window, FALSE);
-    gtk_window_set_title (GTK_WINDOW (window), "Pesquisa");
+    gtk_window_set_title (GTK_WINDOW (window), "Administrador & Pesquisa");
     gtk_widget_set_size_request (GTK_WIDGET (window), 800, 500);
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
@@ -778,29 +789,139 @@ void janela_principal (GtkWidget *wid, GtkWidget *win)
     gtk_fixed_put (GTK_FIXED (fixed), button, 10, 197);
     gtk_widget_set_size_request (button, 200, 34);
 
-    label = gtk_label_new ("\n\n\n\n\n\n\n\n");
-    gtk_container_add (GTK_CONTAINER (vbox2), label);
+    image = gtk_image_new_from_file ("Administrator.png");
+    gtk_fixed_put (GTK_FIXED (fixed), image, 60, 270);
+
+    label = gtk_label_new ("\n");
+    gtk_fixed_put (GTK_FIXED (fixed), label, 10, 365);
 
     vbox = gtk_vbox_new (FALSE, 25);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
     frame = gtk_frame_new ("Pesquisa");
     gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 
-    vbox2 = gtk_vbox_new (FALSE, 15);
+    vbox2 = gtk_vbox_new (FALSE, 10);
     gtk_container_add (GTK_CONTAINER (frame), vbox2);
 
-    label = gtk_label_new ("\n  Encontre aqui de maneira rápida e precisa o que                                                                          \n  você busca!  \n");
+    label = gtk_label_new ("\n  Encontre aqui de maneira rápida e precisa o que                                                                          \n  você busca!");
+    gtk_container_add (GTK_CONTAINER (vbox2), label);
+
+    label = gtk_label_new ("\nTítulo");
     gtk_container_add (GTK_CONTAINER (vbox2), label);
 
     entry_busca = gtk_entry_new ();
-    gtk_entry_set_max_length (GTK_ENTRY (entry_busca), 100);
+    gtk_entry_set_max_length (GTK_ENTRY (entry_busca), 80);
     g_signal_connect (entry_busca, "changed", G_CALLBACK (enter_callback_busca), entry_busca);
     tmp_pos = GTK_ENTRY (entry_busca)->text_length;
     gtk_editable_select_region (GTK_EDITABLE (entry_busca), 0, GTK_ENTRY (entry_busca)->text_length);
     gtk_box_pack_start (GTK_BOX (vbox2), entry_busca, TRUE, TRUE, 0);
     gtk_widget_show (entry_busca);
 
-    label = gtk_label_new ("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    label = gtk_label_new ("\nGênero");
+    gtk_container_add (GTK_CONTAINER (vbox2), label);
+
+    hbox2 = gtk_hbox_new (FALSE, 5);
+    gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+
+    check = gtk_check_button_new_with_label ("Ação");
+    gtk_box_pack_start (GTK_BOX (hbox2), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Aventura");
+    gtk_box_pack_start (GTK_BOX (hbox2), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Ficção");
+    gtk_box_pack_start (GTK_BOX (hbox2), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Drama");
+    gtk_box_pack_start (GTK_BOX (hbox2), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    hbox3 = gtk_hbox_new (FALSE, 5);
+    gtk_box_pack_start (GTK_BOX (vbox2), hbox3, TRUE, TRUE, 0);
+
+    check = gtk_check_button_new_with_label ("Comédia");
+    gtk_box_pack_start (GTK_BOX (hbox3), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Suspense");
+    gtk_box_pack_start (GTK_BOX (hbox3), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Terror");
+    gtk_box_pack_start (GTK_BOX (hbox3), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Suspense");
+    gtk_box_pack_start (GTK_BOX (hbox3), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    label = gtk_label_new ("\nAno");
+    gtk_container_add (GTK_CONTAINER (vbox2), label);
+
+    entry_busca = gtk_entry_new ();
+    gtk_entry_set_max_length (GTK_ENTRY (entry_busca), 80);
+    g_signal_connect (entry_busca, "changed", G_CALLBACK (enter_callback_busca), entry_busca);
+    tmp_pos = GTK_ENTRY (entry_busca)->text_length;
+    gtk_editable_select_region (GTK_EDITABLE (entry_busca), 0, GTK_ENTRY (entry_busca)->text_length);
+    gtk_box_pack_start (GTK_BOX (vbox2), entry_busca, TRUE, TRUE, 0);
+    gtk_widget_show (entry_busca);
+
+    label = gtk_label_new ("\nClassificação (em estrelas)");
+    gtk_container_add (GTK_CONTAINER (vbox2), label);
+
+    hbox4 = gtk_hbox_new (FALSE, 5);
+    gtk_box_pack_start (GTK_BOX (vbox2), hbox4, TRUE, TRUE, 0);
+
+    check = gtk_check_button_new_with_label ("Uma");
+    gtk_box_pack_start (GTK_BOX (hbox4), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Duas");
+    gtk_box_pack_start (GTK_BOX (hbox4), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Três");
+    gtk_box_pack_start (GTK_BOX (hbox4), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Quatro");
+    gtk_box_pack_start (GTK_BOX (hbox4), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    check = gtk_check_button_new_with_label ("Cinco");
+    gtk_box_pack_start (GTK_BOX (hbox4), check, TRUE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (entry_toggle_visibility), entry_busca);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), FALSE);
+    gtk_widget_show (check);
+
+    label = gtk_label_new ("\n\n");
     gtk_container_add (GTK_CONTAINER (vbox2), label);
 
     gtk_widget_show_all (window);
@@ -822,7 +943,7 @@ void janela_login ()
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_resizable (window, FALSE);
     gtk_window_set_position (GTK_WINDOW (window), GTK_WIN_POS_CENTER);
-    gtk_widget_set_size_request (GTK_WIDGET (window), 280, 210);
+    gtk_widget_set_size_request (GTK_WIDGET (window), 290, 220);
     gtk_window_set_title (GTK_WINDOW (window), "Login de Admin LocData");
     gtk_container_set_border_width (GTK_CONTAINER (window), 10);
 
